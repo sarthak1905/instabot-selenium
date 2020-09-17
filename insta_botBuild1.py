@@ -18,14 +18,14 @@ class InstaBot:
     def login(self,username,pw):
         self.username = username
         self.pw = pw
-        user_field = self.driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div[1]/div/form/div/div[1]/div/label/input')
-        pw_field = self.driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div[1]/div/form/div/div[2]/div/label/input')
-        login_button = self.driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div[1]/div/form/div/div[3]/button/div')
-        user_field.send_keys(self.username)
+        user_field = self.driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input')
+        pw_field = self.driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input')
+        login_button = self.driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[3]/button/div')
+        user_field.send_keys(self.susername)
         pw_field.send_keys(self.pw)
         login_button.click()
         time.sleep(3)
-        not_now1 = self.driver.find_element_by_xpath('/html/body/div[1]/section/main/div/div/div/div/button')
+        not_now1 = self.driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/div/div/div/button')
         not_now1.click()
         time.sleep(2)
         not_now2 = self.driver.find_element_by_xpath('/html/body/div[4]/div/div/div/div[3]/button[2]')
