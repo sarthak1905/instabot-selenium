@@ -21,7 +21,7 @@ class InstaBot:
         user_field = self.driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input')
         pw_field = self.driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input')
         login_button = self.driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[3]/button/div')
-        user_field.send_keys(self.susername)
+        user_field.send_keys(self.username)
         pw_field.send_keys(self.pw)
         login_button.click()
         time.sleep(3)
