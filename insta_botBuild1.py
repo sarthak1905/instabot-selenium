@@ -31,15 +31,15 @@ class InstaBot:
     def open_profile(self):
         profile_link = self.driver.find_element_by_xpath('//*[@id="react-root"]/section/main/section/div[3]/div[1]/div/div[2]/div[1]/a')
         profile_link.click()
-        time.sleep(1000)
 
 def main():
     bb8 = InstaBot()
-    bb8.start()
     username = input('Enter your username:')
     pw = getpass('Enter your password(will NOT appear as you type):')
+    bb8.start()
     bb8.login(username,pw)
     bb8.open_profile()
+    time.sleep(1000)
 
 if __name__ =='__main__':
     main()
