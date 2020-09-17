@@ -1,8 +1,4 @@
 from selenium import webdriver 
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from getpass import getpass
 import time
 
@@ -30,14 +26,20 @@ class InstaBot:
         time.sleep(2)
         not_now2 = self.driver.find_element_by_xpath('/html/body/div[4]/div/div/div/div[3]/button[2]')
         not_now2.click()
+        time.sleep(2)
+
+    def open_profile(self):
+        profile_link = self.driver.find_element_by_xpath('//*[@id="react-root"]/section/main/section/div[3]/div[1]/div/div[2]/div[1]/a')
+        profile_link.click()
         time.sleep(1000)
 
 def main():
     bb8 = InstaBot()
     bb8.start()
     username = input('Enter your username:')
-    pw = getpass()
+    pw = getpass('Enter your password(will NOT appear as you type):')
     bb8.login(username,pw)
+    bb8.open_profile()
 
 if __name__ =='__main__':
     main()
