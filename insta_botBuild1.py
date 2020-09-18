@@ -9,7 +9,7 @@ class InstaBot:
     
     def start(self):
         self.driver.get('https://www.instagram.com/')
-        time.sleep(3)
+        time.sleep(2)
         return
 
     def login(self,username,pw):
@@ -33,11 +33,11 @@ class InstaBot:
     def open_profile(self):
         profile_link = self.driver.find_element_by_xpath('//*[@id="react-root"]/section/main/section/div[3]/div[1]/div/div[2]/div[1]/a')
         profile_link.click()
-        time.sleep(1)
+        time.sleep(2)
         return
 
     def open_following(self):
-        following_link = self.driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/header/section/ul/li[3]/a')
+        following_link = self.driver.find_element_by_xpath('/html/body/div[1]/section/main/div/header/section/ul/li[3]/a')
         following_link.click()
         return
 
@@ -55,10 +55,10 @@ class InstaBot:
             time.sleep(SCROLL_PAUSE_TIME)
 
             # Calculate new scroll height and compare with last scroll height
-            new_height = driver.execute_script("return document.body.scrollHeight")
+            new_height = self.driver.execute_script("return document.body.scrollHeight")
             if new_height == last_height:
                 break
-            last_height = new_heigh
+            last_height = new_height
         return
 
 def main():
@@ -69,6 +69,7 @@ def main():
     bb8.login(username,pw)
     bb8.open_profile()
     bb8.open_following()
+    bb8.scroll_list_following()
     time.sleep(1000)
 
 if __name__ =='__main__':
