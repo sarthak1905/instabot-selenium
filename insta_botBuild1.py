@@ -5,11 +5,11 @@ import time
 #Class for the bot
 class InstaBot:
 
+    #Initializes bot 
     def __init__(self):
         self.PATH = "C:\Program Files (x86)\chromedriver.exe"
         self.driver = webdriver.Chrome(self.PATH)
     
-
     #Starts Instagram
     def start(self):
         self.driver.get('https://www.instagram.com/')
@@ -50,6 +50,7 @@ class InstaBot:
         following_link.click()
         return
 
+    #Gets the list of the people you follow
     def get_following(self):
         self.following = self.scroll_list_following()
         print(self.following)
