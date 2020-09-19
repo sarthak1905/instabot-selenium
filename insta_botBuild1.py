@@ -28,7 +28,7 @@ class InstaBot:
         user_field.send_keys(self.username)
         pw_field.send_keys(self.pw)
         login_button.click()
-        time.sleep(2)
+        time.sleep(2.5)
         not_now1 = self.driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/div/div/div/button')
         not_now1.click()
         time.sleep(1)
@@ -52,7 +52,7 @@ class InstaBot:
 
     def get_following(self):
         self.following = self.scroll_list_following()
-        print(following)
+        print(self.following)
         return
 
     #Scrolls the list of your following and retrieves their names
@@ -62,7 +62,7 @@ class InstaBot:
         last_ht, ht = 0, 1
         while last_ht != ht:
             last_ht = ht
-            sleep(1)
+            time.sleep(1)
             ht = self.driver.execute_script("""
                 arguments[0].scrollTo(0, arguments[0].scrollHeight); 
                 return arguments[0].scrollHeight;
