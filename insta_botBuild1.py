@@ -17,10 +17,10 @@ class InstaBot:
         return
 
     #Logs into your account, also closes various dialogue boxes that open on the way 
-    def login(self,username,pw):
+    def login(self):
 
-        self.username = username
-        self.pw = pw
+        self.username = input('Enter your username:')
+        self.pw = getpass('Enter your password(will NOT appear as you type):')
 
         user_field = self.driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input')
         pw_field = self.driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input')
@@ -56,21 +56,26 @@ class InstaBot:
         self.following = self.scroll_list(xpath)
         return
 
+    #Opens the link to 'Followers'
     def open_followers(self):
         followers_link = self.driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/header/section/ul/li[2]/a')
         followers_link.click()
         return
 
+    #Gets the list of followers
     def get_followers(self):
         xpath = '/html/body/div[4]/div/div/div[2]'
         self.followers = self.scroll_list(xpath)
         return
 
-    #Scrolls the list of your following and retrieves their names
+    #Scrolls a scroll box and retrieves their names
     def scroll_list(self,xpath):
+
         time.sleep(2)
         scroll_box = self.driver.find_element_by_xpath(xpath)
         last_ht, ht = 0, 1
+        
+        #Keep scrolling till you can't go down any further
         while last_ht != ht:
             last_ht = ht
             time.sleep(1)
@@ -78,36 +83,48 @@ class InstaBot:
                 arguments[0].scrollTo(0, arguments[0].scrollHeight); 
                 return arguments[0].scrollHeight;
                 """, scroll_box)
+        
+        #Gets the list of accounts
         links = scroll_box.find_elements_by_tag_name('a')
         names = [name.text for name in links if name.text != '']
+
+        #Closes the box
         close_btn = self.driver.find_element_by_xpath('/html/body/div[4]/div/div/div[1]/div/div[2]/button/div')
         close_btn.click()
+
         return names
 
+    #Prints the list of people you follow who don't follow you back in terminal
     def get_unfollowers(self):
+
         self.unfollowers = [x for x in self.following if x not in self.followers]
-        print(self.unfollowers)
+        for name in self.unfollowers:
+            print(name)
         return
     
+    #Closes the driver
     def close(self):
         self.driver.quit()
+        return
 
-def main():
+def main(): 
 
-    #Inputs username and password of your account
-    username = input('Enter your username:')
-    pw = getpass('Enter your password(will NOT appear as you type):')
-
-    #Actual bot working 
+    #Bot method calls 
     bb8 = InstaBot()
+
     bb8.start()
-    bb8.login(username,pw)
+    
+    bb8.login()
+    
     bb8.open_profile()
     bb8.open_following()
+    
     bb8.get_following()
     bb8.open_followers()
+    
     bb8.get_followers()
     bb8.get_unfollowers()
+
     bb8.close()
 
 if __name__ =='__main__':
