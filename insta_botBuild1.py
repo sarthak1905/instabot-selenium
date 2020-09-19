@@ -51,14 +51,14 @@ class InstaBot:
         return
 
     def get_following(self):
-        self.following = self.scroll_list_following(self)
+        self.following = self.scroll_list_following()
         print(following)
         return
 
     #Scrolls the list of your following and retrieves their names
     def scroll_list_following(self):
         time.sleep(2)
-        scroll_box = self.driver.find_element_by_xpath("/html/body/div[3]/div/div[2]")
+        scroll_box = self.driver.find_element_by_xpath("/html/body/div[4]/div/div")
         last_ht, ht = 0, 1
         while last_ht != ht:
             last_ht = ht
