@@ -52,14 +52,21 @@ class InstaBot:
 
     #Gets the list of the people you follow
     def get_following(self):
-        self.following = self.scroll_list_following()
-        print(self.following)
+        self.following = self.scroll_list()
+        return
+
+    def open_followers(self):
+        followers_link = self.driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/header/section/ul/li[2]/a')
+        return
+
+    def get_followers(self):
+        self.followers = self.scroll_list()
         return
 
     #Scrolls the list of your following and retrieves their names
-    def scroll_list_following(self):
+    def scroll_list(self):
         time.sleep(2)
-        scroll_box = self.driver.find_element_by_xpath("/html/body/div[4]/div/div")
+        scroll_box = self.driver.find_element_by_xpath("/html/body/div[4]/div/div/div[2]")
         last_ht, ht = 0, 1
         while last_ht != ht:
             last_ht = ht
@@ -70,6 +77,8 @@ class InstaBot:
                 """, scroll_box)
         links = scroll_box.find_elements_by_tag_name('a')
         names = [name.text for name in links if name.text != '']
+        close_btn = self.driver.find_element_by_xpath('/html/body/div[4]/div/div/div[1]/div/div[2]/button/div/svg')
+        close_btn.click()
         return names
 
 def main():
