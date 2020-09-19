@@ -9,6 +9,7 @@ class InstaBot:
         self.PATH = "C:\Program Files (x86)\chromedriver.exe"
         self.driver = webdriver.Chrome(self.PATH)
     
+
     #Starts Instagram
     def start(self):
         self.driver.get('https://www.instagram.com/')
@@ -49,26 +50,26 @@ class InstaBot:
         following_link.click()
         return
 
+    def get_following(self):
+        self.following = self.scroll_list_following(self)
+        print(following)
+        return
+
     #Scrolls the list of your following and retrieves their names
     def scroll_list_following(self):
-        SCROLL_PAUSE_TIME = 1
-
-        # Get scroll height
-        last_height = self.driver.execute_script("return document.body.scrollHeight")
-
-        while True:
-            # Scroll down to bottom
-            self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-
-            # Wait to load page
-            time.sleep(SCROLL_PAUSE_TIME)
-
-            # Calculate new scroll height and compare with last scroll height
-            new_height = self.driver.execute_script("return document.body.scrollHeight")
-            if new_height == last_height:
-                break
-            last_height = new_height
-        return
+        sleep(2)
+        scroll_box = self.driver.find_element_by_xpath("/html/body/div[3]/div/div[2]")
+        last_ht, ht = 0, 1
+        while last_ht != ht:
+            last_ht = ht
+            sleep(1)
+            ht = self.driver.execute_script("""
+                arguments[0].scrollTo(0, arguments[0].scrollHeight); 
+                return arguments[0].scrollHeight;
+                """, scroll_box)
+        links = scroll_box.find_elements_by_tag_name('a')
+        names = [name.text for name in links if name.text != '']
+        return names
 
 def main():
 
