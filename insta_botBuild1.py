@@ -57,7 +57,7 @@ class InstaBot:
 
     #Scrolls the list of your following and retrieves their names
     def scroll_list_following(self):
-        sleep(2)
+        time.sleep(2)
         scroll_box = self.driver.find_element_by_xpath("/html/body/div[3]/div/div[2]")
         last_ht, ht = 0, 1
         while last_ht != ht:
@@ -83,7 +83,7 @@ def main():
     bb8.login(username,pw)
     bb8.open_profile()
     bb8.open_following()
-    bb8.scroll_list_following()
+    bb8.get_following()
     time.sleep(1000)
 
 if __name__ =='__main__':
