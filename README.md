@@ -8,4 +8,5 @@
  The primary module used for this bot is the selenium module on python.
  
  ## Development status
- This bot is currently under development and is being worked upoon as you read this.
+ This bot is currently working, as of 20th September, 2020. However, changes on the Instagram frontend may require 
+ this script to be edited. 
