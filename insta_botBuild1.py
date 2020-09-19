@@ -7,6 +7,8 @@ class InstaBot:
 
     #Initializes bot 
     def __init__(self):
+        self.username = input('Enter your username:')
+        self.pw = getpass('Enter your password(will NOT appear as you type):')
         self.PATH = "C:\Program Files (x86)\chromedriver.exe"
         self.driver = webdriver.Chrome(self.PATH)
     
@@ -18,9 +20,6 @@ class InstaBot:
 
     #Logs into your account, also closes various dialogue boxes that open on the way 
     def login(self):
-
-        self.username = input('Enter your username:')
-        self.pw = getpass('Enter your password(will NOT appear as you type):')
 
         user_field = self.driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input')
         pw_field = self.driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input')
