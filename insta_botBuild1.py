@@ -52,21 +52,27 @@ class InstaBot:
 
     #Gets the list of the people you follow
     def get_following(self):
-        self.following = self.scroll_list()
+        xpath_scroll = '/html/body/div[4]/div/div/div[2]'
+        xpath_close = '/html/body/div[4]/div/div/div[1]/div/div[2]/button/div/svg'
+        self.following = self.scroll_list(xpath_scroll,xpath_close)
         return
 
     def open_followers(self):
         followers_link = self.driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/header/section/ul/li[2]/a')
+        followers_link.click()
         return
 
     def get_followers(self):
-        self.followers = self.scroll_list()
+        xpath_scroll = '/html/body/div[4]/div/div/div[2]'
+        xpath_close ='/html/body/div[4]/div/div/div[1]/div/div[2]/button/div/svg/path'
+        self.followers = self.scroll_list(xpath_scroll, xpath_close)
+        print(self.followers)
         return
 
     #Scrolls the list of your following and retrieves their names
-    def scroll_list(self):
+    def scroll_list(self,xpath_scroll,xpath_close):
         time.sleep(2)
-        scroll_box = self.driver.find_element_by_xpath("/html/body/div[4]/div/div/div[2]")
+        scroll_box = self.driver.find_element_by_xpath(xpath_scroll)
         last_ht, ht = 0, 1
         while last_ht != ht:
             last_ht = ht
@@ -77,13 +83,13 @@ class InstaBot:
                 """, scroll_box)
         links = scroll_box.find_elements_by_tag_name('a')
         names = [name.text for name in links if name.text != '']
-        close_btn = self.driver.find_element_by_xpath('/html/body/div[4]/div/div/div[1]/div/div[2]/button/div/svg')
+        close_btn = self.driver.find_element_by_xpath(xpath_close)
         close_btn.click()
         return names
 
 def main():
 
-    #Inputs username and password of your account 
+    #Inputs username and password of your account
     username = input('Enter your username:')
     pw = getpass('Enter your password(will NOT appear as you type):')
 
@@ -92,8 +98,10 @@ def main():
     bb8.start()
     bb8.login(username,pw)
     bb8.open_profile()
-    bb8.open_following()
-    bb8.get_following()
+    #bb8.open_following()
+    #bb8.get_following()
+    bb8.open_followers()
+    bb8.get_followers()
     time.sleep(1000)
 
 if __name__ =='__main__':
