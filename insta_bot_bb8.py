@@ -30,7 +30,7 @@ class InstaBot:
         time.sleep(2.5)
         not_now1 = self.driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/div/div/div/button')
         not_now1.click()
-        time.sleep(1)
+        time.sleep(2)
         not_now2 = self.driver.find_element_by_xpath('/html/body/div[4]/div/div/div/div[3]/button[2]')
         not_now2.click()
         time.sleep(1)
